@@ -8,7 +8,9 @@
 
 <h5>Create a comment:</h5>
 <%= form_for [@post, @comment] do |f| %>
+  <div class='control-group'>
   <%= f.text_area :content %>
   <br/>
   <%= f.submit "Create Comment", class: "btn btn-primary" %>
+  </div>
 <% end %>

@@ -2,8 +2,13 @@
 
 <%= render 'shared/content_title', title: @post.title %>
 
-<p>
-  <%= @post.description %>
-</p>
+<p><%= @post.url %></p></br>
+<p><%= @post.description %></p>
 <hr/>
 
+<h5>Create a comment:</h5>
+<%= form_for [@post, @comment] do |f| %>
+  <%= f.text_area :content %>
+  <br/>
+  <%= f.submit "Create Comment", class: "btn btn-primary" %>
+<% end %>

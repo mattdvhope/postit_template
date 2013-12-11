@@ -10,20 +10,22 @@ class PostsController < ApplicationController
 
   def show
     # the instance method here is now in the set_post method at the bottom
+    @comment = Comment.new
   end
 
   def new
     @post = Post.new
+    @user_count = User.count
   end
 
   def create
-    # the instance method here is now in the set_post method at the bottom
+    @post = Post.new(post_params)
 
     if @post.save
-    # binding.pry
       flash[:notice] = "Your post was created"
       redirect_to posts_path
     else # validation error
+      @user_count = User.count
       render "new" # we cannot do redirect_to b/c we want to display the .errors on 'new' template
     end
 
@@ -31,15 +33,17 @@ class PostsController < ApplicationController
 
   def edit # url is... /posts/3/edit , etc...
     # the instance method here is now in the set_post method at the bottom
+    @user_count = User.count
   end
 
   def update
-    @post = Post.find(params[:id])
+    # the instance method here is now in the set_post method at the bottom
 
     if @post.update(post_params)
       flash[:notice] = "The post was updated"
       redirect_to post_path
     else
+      @user_count = User.count
       render :edit
     end
   end

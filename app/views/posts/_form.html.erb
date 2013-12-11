@@ -1,13 +1,4 @@
-<% if @post.errors.any? %>
-  <div class='alert alert-error'>
-  <h5>There were some errors</h5>
-  <ul>
-    <% @post.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-  </div>
-<% end %>
+<%= render 'shared/errors', obj: @post %>
 
 <%= form_for @post do |f| %>
   <%= f.label :title %>
@@ -23,7 +14,7 @@
   <br/>
 
   <%= f.label :user_id %>
-  <%= f.select(:user_id, 1..@user_count) %>
+  <%= f.collection_select :user_id, @user_count, :id, :username %>
   <br/>
 
   <%= f.submit "Create Post", class: 'btn btn-primary' %>

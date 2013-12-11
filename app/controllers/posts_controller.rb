@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update] # the instance variable in the set_post method are now immediately accessible to these actions in the brackets here.
+  before_action :user_count, only: [:new, :create, :edit, :update]
   # Reasons for before_action
   # 1. set up a DRY instance variable for action
   # 2. redirect based on some condition
@@ -15,7 +16,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @user_count = User.count
   end
 
   def create
@@ -24,16 +24,14 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = "Your post was created"
       redirect_to posts_path
-    else # validation error
-      @user_count = User.count
-      render "new" # we cannot do redirect_to b/c we want to display the .errors on 'new' template
+    else # validation error --> goes to _form.html.erb, lines 1-10
+        render "new" # we cannot do redirect_to b/c we want to display the .errors on 'new' template
     end
 
   end
 
   def edit # url is... /posts/3/edit , etc...
     # the instance method here is now in the set_post method at the bottom
-    @user_count = User.count
   end
 
   def update
@@ -41,10 +39,9 @@ class PostsController < ApplicationController
 
     if @post.update(post_params)
       flash[:notice] = "The post was updated"
-      redirect_to post_path
+      redirect_to posts_path
     else
-      @user_count = User.count
-      render :edit
+        render :edit
     end
   end
 
@@ -52,10 +49,15 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit! # permit everything
+    # params.require(:post).permit(:title, :url) # permits only title and url; this is a Rails 4 requirement.
   end
 
   def set_post # this makes the "show, edit, & update" methods DRY
     @post = Post.find(params[:id])
+  end
+
+  def user_count
+     @user_count = User.all
   end
 
 end

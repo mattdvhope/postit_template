@@ -20,6 +20,7 @@ class PostsController < ApplicationController
     # the instance method here is now in the set_post method at the bottom
 
     if @post.save
+    # binding.pry
       flash[:notice] = "Your post was created"
       redirect_to posts_path
     else # validation error
@@ -33,7 +34,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    # binding.pry
     @post = Post.find(params[:id])
 
     if @post.update(post_params)

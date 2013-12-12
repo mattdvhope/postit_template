@@ -36,7 +36,6 @@ class PostsController < ApplicationController
 
   def update
     # the instance method here is now in the set_post method at the bottom
-
     if @post.update(post_params)
       flash[:notice] = "The post was updated"
       redirect_to posts_path
@@ -48,7 +47,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit! # permit everything
+    params.require(:post).permit(:title, :url, :description, :user_id, category_ids:[])
     # params.require(:post).permit(:title, :url) # permits only title and url; this is a Rails 4 requirement.
   end
 

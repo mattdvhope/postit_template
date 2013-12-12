@@ -1,21 +1,34 @@
 <%= render 'shared/errors', obj: @post %>
 
+<div class="well span8">
 <%= form_for @post do |f| %>
+  <div class='control-group'>
   <%= f.label :title %>
   <%= f.text_field :title %>
-  <br/>
+  </div>
 
+  <div class='control-group'>
   <%= f.label :url %>
   <%= f.text_field :url %>
-  <br/>
+  </div>
 
+  <div class='control-group'>
   <%= f.label :description %>
-  <%= f.text_field :description %>
-  <br/>
+  <%= f.text_area :description, rows: 5, :class => 'span4' %>
+  </div>
+  
+  <div class='control-group'>
+  <%= f.label "Categories" %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
+    <% cb.label(class: "check_box inline") {cb.check_box(class: "check_box") + cb.text} %>
+  <% end %>
+  </div>
 
-  <%= f.label :user_id %>
+  <div class='control-group'>
+  <%= f.label :user_id, "Creator" %>
   <%= f.collection_select :user_id, @user_count, :id, :username %>
-  <br/>
+  </div>
 
   <%= f.submit "Create Post", class: 'btn btn-primary' %>
 <% end %>
+</div>

@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
+  # Reasons for before_action
+  # 1. set up a DRY instance variable for action...
   before_action :set_post, only: [:show, :edit, :update] # the instance variable in the set_post method are now immediately accessible to these actions in the brackets here.
   before_action :user_count, only: [:new, :create, :edit, :update]
-  # Reasons for before_action
-  # 1. set up a DRY instance variable for action
-  # 2. redirect based on some condition
+    # 2. redirect away from action based on some condition...
+  before_action :require_user, except: [:index, :show] #the :require_user method (the requirement of having a user password) will be written in the application_controller.rb since it will be application-wide
 
   def index
     @posts = Post.all
@@ -20,6 +21,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.creator = current_user
 
     if @post.save
       flash[:notice] = "Your post was created"

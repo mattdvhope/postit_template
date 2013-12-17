@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     # 2. see if password matches
     # 3. if so, log in
     # 4. if not, error message
-
+    # binding.pry
     user = User.find_by(username: params[:username]) # this actually could be a local variable since we don't have a model with it.
 
     if user && user.authenticate(params[:password]) # '&&' here means that if 'user' fails, then don't do the next thing (user.authenticate...); we're 'shore-circuiting' here

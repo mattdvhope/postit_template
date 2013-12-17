@@ -36,6 +36,12 @@
   <% if logged_in? %>
     <li>
       <div class='nav_item'>
+      Hi <%= current_user.username %>
+      </div>
+    </li>
+
+    <li>
+      <div class='nav_item'>
         <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
       </div>
     </li>

@@ -3,8 +3,9 @@
     <%= render post.categories %>
     <h4><%= link_to post.title, post_path(post) %></h4>
     <p><%= link_to clean_url(post.url), fix_url(post.url) %></p>
-
-    <p>(<%= link_to 'edit', edit_post_path(post) %>)</p>
+    <%  if logged_in? %>
+      <p>[<%= link_to 'edit', edit_post_path(post) %>]</p>
+    <% end %>
     <p><%= post.description %></p>
     <p>
       <span class="quiet">posted by</span> <%= post.creator.username %>

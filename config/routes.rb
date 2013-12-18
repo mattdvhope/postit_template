@@ -8,6 +8,10 @@ PostitTemplate::Application.routes.draw do
   get 'logout', to: 'sessions#destroy'
 
   resources :posts, except: [:destroy] do
+    member do # w/in a member we specify the HTTP verb (post, here) and then we specify an action (:vote)
+      post :vote # it will require an 'id' in the middle of the URL (/posts/3/vote); therefore this 'id' is exposed to every member of that URL
+    end          # this gives us the ability to process a 'vote' for a 'post'; the post_id is built into the URL
+
     resources :comments, only: [:create]
   end
 
@@ -15,3 +19,6 @@ PostitTemplate::Application.routes.draw do
   resources :users, only: [:create]
 
 end
+
+# POST /posts/3/vote => 'PostController#vote'
+# POST /comments/4/vote => 'CommentsController#vote'

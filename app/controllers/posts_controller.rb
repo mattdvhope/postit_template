@@ -46,6 +46,18 @@ class PostsController < ApplicationController
     end
   end
 
+  def vote #this not our normal CRUD work-flow; it's just a link, not a form
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+binding.pry
+    if @vote.valid?
+      flash[:notice] = "Your vote was counted."
+    else
+      flash[:error] = "Your vote was not counted."
+    end
+
+    redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+  end
+
   private
 
   def post_params

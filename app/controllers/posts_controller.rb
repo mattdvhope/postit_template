@@ -47,8 +47,9 @@ class PostsController < ApplicationController
   end
 
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
-    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-binding.pry
+    post = Post.find(params[:id]) # I really should not need the local variable 'post' here, but for some reason the instance variable '@post' is not available here.
+    @vote = Vote.create(voteable: post, creator: current_user, vote: params[:vote])
+# binding.pry
     if @vote.valid?
       flash[:notice] = "Your vote was counted."
     else

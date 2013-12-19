@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
   # Reasons for before_action
   # 1. set up a DRY instance variable for action...
-  before_action :set_post, only: [:show, :edit, :update] # the instance variable in the set_post method are now immediately accessible to these actions in the brackets here.
+  before_action :set_post, only: [:show, :edit, :update, :vote] # the instance variable in the set_post method are now immediately accessible to these actions in the brackets here.
   before_action :user_count, only: [:new, :create, :edit, :update]
-    # 2. redirect away from action based on some condition...
+  # 2. redirect away from action based on some condition...
   before_action :require_user, except: [:index, :show] #the :require_user method (the requirement of having a user password) will be written in the application_controller.rb since it will be application-wide
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by{|post| post.total_votes}.reverse
   end
 
   def show
@@ -47,8 +47,7 @@ class PostsController < ApplicationController
   end
 
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
-    post = Post.find(params[:id]) # I really should not need the local variable 'post' here, but for some reason the instance variable '@post' is not available here.
-    @vote = Vote.create(voteable: post, creator: current_user, vote: params[:vote])
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 # binding.pry
     if @vote.valid?
       flash[:notice] = "Your vote was counted."

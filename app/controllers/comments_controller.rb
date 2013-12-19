@@ -15,4 +15,17 @@ class CommentsController < ApplicationController
     end
   end
 
+  def vote
+    comment = Comment.find(params[:id])
+    @vote = Vote.create(voteable: comment, creator: current_user, vote: params[:vote])
+
+    if @vote.valid?
+      flash[:notice] = "Your vote was counted."
+    else
+      flash[:error] = "Your vote was not counted."
+    end
+
+    redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+  end
+
 end

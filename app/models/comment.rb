@@ -6,4 +6,16 @@ class Comment < ActiveRecord::Base
   validates :content, presence: true
   validates :post_id, presence: true
 
+  def total_votes #business-logic performed here in the model (for '_post.html.erb')
+    self.up_votes - self.down_votes # use 'self.' to be more explicit here
+  end
+
+  def up_votes
+    self.votes.where(vote: true).size
+  end
+
+  def down_votes
+    self.votes.where(vote: false).size
+  end
+
 end

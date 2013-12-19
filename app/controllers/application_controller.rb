@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in? #this allows the views (in addition to the controllers) to be exposed to these methods below...
+  helper_method :current_user, :logged_in? #this allows the views (in addition to the controllers) to be exposed to these methods below...makes these methods available to both controllers and views
 
   def current_user
     #if there's an authenticated user, return the user obj

@@ -18,22 +18,24 @@
         <% end %>
     
           <li class="divider"></li>
-          <li>
-            <%= link_to new_category_path do %>
-              <i class="icon-plus"></i>
-              New Category
-          </li>
+          <% if logged_in? %>
+            <li>
+              <%= link_to new_category_path do %>
+                <i class="icon-plus"></i>
+                New Category
+              <% end %>
+            </li>
           <% end %>
       </ul>
     </div>
   </li>
-  <li>
-    <div class='nav_item'>
-      <%= link_to 'New Post', new_post_path, class: 'btn btn-success <btn->   </btn->small' %>
-    </div>
-  </li>
 
   <% if logged_in? %>
+    <li>
+      <div class='nav_item'>
+        <%= link_to 'New Post', new_post_path, class: 'btn btn-success <btn->   </btn->small' %>
+      </div>
+    </li>
     <li>
       <div class='nav_item'>
       Hi <%= current_user.username %>

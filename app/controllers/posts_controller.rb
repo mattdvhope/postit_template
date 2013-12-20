@@ -42,13 +42,12 @@ class PostsController < ApplicationController
       flash[:notice] = "The post was updated"
       redirect_to posts_path
     else
-        render :edit
+      render :edit
     end
   end
 
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-# binding.pry
     if @vote.valid?
       flash[:notice] = "Your vote was counted."
     else

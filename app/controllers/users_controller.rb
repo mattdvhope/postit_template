@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
-
+  before_action :require_same_user, only: [:edit, :update] #if a user tries to edit another user's profile, he'll be redirected to the root directory and be given an error message
+              # :require_same_user is a method defined at the bottom of this 'users_controller.rb' file.
   def show
   end
 
@@ -40,6 +41,13 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def require_same_user
+    if current_user != @user
+      flash[:error] = "You're not allowed to do that since you are not that user/creator."
+      redirect_to root_path
+    end
   end
 
 end

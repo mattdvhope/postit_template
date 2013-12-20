@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :subjects
   has_many :categories, through: :subjects
-  has_many :votes, as: :voteable #use the ':as' keyword as on the 'one' side of the 1:M relationship (in polymorphic associations)
+  has_many :votes, as: :voteable #the foreign key is not 'post_id' on the votes table; instead the foreign key on the 'votes' table is voteable_type/voteable_id (a composite foreign key) #use the ':as' keyword for the 'one' side of the 1:M relationship (in polymorphic associations)
 
   validates :title, presence: true, length: {minimum: 5}
   validates :description, presence: true

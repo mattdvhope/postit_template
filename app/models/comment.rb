@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   belongs_to :post
   belongs_to :creator, :class_name => "User", :foreign_key => 'user_id'
-  has_many :votes, as: :voteable #use the ':as' keyword as on the 'one' side of the 1:M relationship (in polymorphic associations)
-                                 #'votes' is polymorphic so we don't have to create a new foreign key
+  has_many :votes, as: :voteable #the foreign key is not 'comment_id' on the votes table; instead the foreign key on the 'votes' table is voteable_type/voteable_id (a composite foreign key) #use the ':as' keyword for the 'one' side of the 1:M relationship (in polymorphic associations)
+
   validates :content, presence: true
   validates :post_id, presence: true
 

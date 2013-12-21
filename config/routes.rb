@@ -8,7 +8,7 @@ PostitTemplate::Application.routes.draw do
   get '/logout', to: 'sessions#destroy', as: 'logout' # , as: 'logout' is redundant and thus not necessary.
 
   resources :posts, except: [:destroy] do
-    member do # w/in a member we specify the HTTP verb (post, here) and then we specify an action (:vote)
+    member do # w/in a member we specify the HTTP verb (post, here) and then we specify an action (:vote, here)
       post :vote # 'post' here is the HTTP verb; it will require an 'id' in the middle of the URL (/posts/3/vote); therefore this 'id' is exposed to every member of that URL (both sides of the '3' (.../3/...))
     end          # this gives us the ability to process a 'vote' for a 'post'; the post_id is built into the URL
 

@@ -16,3 +16,15 @@
 //= require_tree .
 //= require bootstrap
 
+// The JS/AJAX code below is what the 'remote: true' (in the view template will do for you).  Whatever you write beyond is the '3. Handle the response' portion of the code.
+// $(document).ready(function() {
+//   $('#hit_form input').click(function() { // 1. Unobstrusive javascript event listener
+//     $.ajax({ // 2. Trigger ajax request
+//       type: 'POST',
+//       url: '/player/hit'
+//       data: {param1: "hi", param2: 'there'}
+//     }).done(function(msg) { // 3. Handle the response
+//       $('#some_element').html(msg);
+//     })
+//   });
+// });

@@ -48,24 +48,31 @@ class PostsController < ApplicationController
 
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
     vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-    if vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "Your vote was not counted because you can only vote on a post once."
-    end
 
-    redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+    respond_to do |format|
+      format.html { #where we put the code for our normal flow (BTW, the .html method can take a code block)
+        if vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "Your vote was not counted because you can only vote on a post once."
+        end
+        redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+      }
+    # format.js { render json: @post }   #where we put the code for our ajax-ified flow
+                       # json: @post returns a hash-like structure; whoever made this json call now needs to parse this hash-like structure and use its data
+      format.js #with no code-block here, its default action is to render a template (just like an empty method in the controller would render its named template), but in this case it renders a javascript template rather than an html template; with it, I have access to the instance variables in this action ('vote')
+    end
   end
 
   private
 
   def post_params
     params.require(:post).permit(:title, :url, :description, :user_id, category_ids:[])
-    # params.require(:post).permit(:title, :url) # permits only title and url; this is a Rails 4 requirement.
+  # params.require(:post).permit(:title, :url) # permits only title and url; this is a Rails 4 requirement.
   end
 
   def set_post # this makes the "show, edit, & update" methods DRY
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id]) # The slug will still come in with a key of :id(routing convention).  #slug comes from the post.rb model.
   end
 
   def user_count

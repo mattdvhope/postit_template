@@ -16,16 +16,20 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    # Line below: Instead of using 'comment = Comment.find(params[:id])' & voteable: comment (below-where 'voteable' parses out the voteable_type & voteable_id), I used the individual columns/attributes of 'Vote'. This is another way of doing the same thing.
-    vote = Vote.create(voteable_type: "Comment", voteable_id: params[:id], creator: current_user, vote: params[:vote])
+    @comment = Comment.find(params[:id])
+    @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
 
-    if vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "Your vote was not counted because you can only vote on a comment once."
-    end
-
-    redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+    respond_to do |format|
+      format.html {
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "Your vote was not counted because you can only vote on a comment once."
+        end
+        redirect_to :back #this ':back' says that wherever you came from, go back to that URL
+      }
+      format.js
+    end        
   end
 
   private

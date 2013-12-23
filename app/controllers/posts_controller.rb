@@ -47,11 +47,11 @@ class PostsController < ApplicationController
   end
 
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
-    vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 
     respond_to do |format|
       format.html { #where we put the code for our normal flow (BTW, the .html method can take a code block)
-        if vote.valid?
+        if @vote.valid?
           flash[:notice] = "Your vote was counted."
         else
           flash[:error] = "Your vote was not counted because you can only vote on a post once."

@@ -1,7 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-require 'voteable_matt_dec' #this is the gem I'd created
+# require 'voteable_matt_dec' #this is the gem I'd created
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

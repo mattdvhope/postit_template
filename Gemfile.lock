@@ -1,8 +1,3 @@
-PATH
-  remote: /Users/matthewmalone/Sites/voteable-gem
-  specs:
-    voteable_matt_dec (0.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -147,4 +142,3 @@ DEPENDENCIES
   sqlite3
   turbolinks
   uglifier (>= 1.3.0)
-  voteable_matt_dec!

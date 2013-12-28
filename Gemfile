@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '=3.0.1'
+gem 'voteable_matt_dec', path: '/Users/matthewmalone/Sites/voteable-gem'
 
 group :doc do
   gem 'sdoc', require: false

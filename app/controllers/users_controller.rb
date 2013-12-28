@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+binding.pry
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You are registered"
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by slug: params[:id]
   end
 
   def require_same_user

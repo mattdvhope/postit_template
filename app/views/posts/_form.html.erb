@@ -24,11 +24,6 @@
   <% end %>
   </div>
 
-  <div class='control-group'>
-  <%= f.label :user_id, "Creator" %>
-  <%= f.collection_select :user_id, @user_count, :id, :username %>
-  </div>
-
-  <%= f.submit @post.new_record? ? "Create New Post" : "Edit Existing Post", class: 'btn btn-primary' %>
+  <%= f.submit @post.new_record? ? "Create New Post" : "Submit Edited Post", class: 'btn btn-primary' %>
 <% end %>
 </div>

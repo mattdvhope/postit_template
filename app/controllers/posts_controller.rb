@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   def vote #this not our normal CRUD work-flow; it's just a link, not a form
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 
-    respond_to do |format|
+    respond_to do |format| #retain 'format.html' to allow for graceful degradation (i.e., Internet explorer that can't use JS)
       format.html { #where we put the code for our normal flow (BTW, the .html method can take a code block)
         if @vote.valid?
           flash[:notice] = "Your vote was counted."

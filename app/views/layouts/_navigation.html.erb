@@ -10,7 +10,7 @@
       <ul class="dropdown-menu">
       <% Category.all.each do |category| %>
         <li>
-          <%= link_to category.name, category_path(category)  %>
+          <%= link_to category.name, category_path(category) %>
         </li>
       <% end %>
     
@@ -36,7 +36,7 @@
     <li>
       <div class="btn-group nav_item"> <!-- User/Creator dropdown -->
         <%= link_to '#', class: "btn dropdown-toggle", 'data-toggle' => 'dropdown' do %>
-          <%= current_user.username %> <span class="caret"></span>
+          <%= current_user.username.capitalize %> <span class="caret"></span>
         <% end %>
         <ul class="dropdown-menu">
           <li>

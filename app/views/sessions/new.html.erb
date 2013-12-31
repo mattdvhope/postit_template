@@ -3,7 +3,7 @@
 <div class='well'>
   <%= form_tag '/login' do %>
     <div class='control-group'>
-      <%= label_tag :username %>
+      <%= label_tag :username, "User Name <small>...be sure to capitalize name...</small>".html_safe %>
       <%= text_field_tag :username, params[:username] || '' %>
     </div>
     <div class='control-group'>

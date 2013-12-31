@@ -4,9 +4,14 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
 
-  before_save :generate_slug
+  before_save :generate_slug!
+  before_save :capitalize_name
 
-  def generate_slug #.slug method comes from the 'slug' column(virtual attribute) in the 'posts' table.
+  def capitalize_name
+    self.name = self.name.capitalize
+  end
+
+  def generate_slug! #.slug method comes from the 'slug' column(virtual attribute) in the 'posts' table.
     the_slug = to_slug(self.name)
     category = Category.find_by slug: the_slug
     count = 2
@@ -27,10 +32,7 @@ class Category < ActiveRecord::Base
   end
 
   def to_slug(name)
-    str = name.strip
-    str.gsub! /\s*[^A-Za-z0-9]\s*/, '-'
-    str.gsub! /-+/, "-"
-    str.downcase
+    name.strip.downcase.gsub(/\s*[^a-z0-9]\s*/, '-').gsub /-+/, "-"
   end
 
   def to_param

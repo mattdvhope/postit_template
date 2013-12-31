@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   before_action :user_count, only: [:new, :create, :edit, :update]
   # 2. redirect away from action based on some condition...
   before_action :require_user, except: [:index, :show] #the :require_user method (the requirement of having a user password) will be written in the application_controller.rb since it will be application-wide
+  before_action :require_creator, only: [:edit, :update]
 
   def index
     @posts = Post.all.sort_by{|post| post.total_votes}.reverse
@@ -73,6 +74,10 @@ class PostsController < ApplicationController
 
   def set_post # this makes the "show, edit, & update" methods DRY
     @post = Post.find_by(slug: params[:id]) # The slug will still come in with a key of :id(routing convention).  #slug comes from the post.rb model.
+  end
+
+  def require_creator
+    access_denied unless logged_in? and (current_user == @post.creator || current_user.admin?)
   end
 
   def user_count

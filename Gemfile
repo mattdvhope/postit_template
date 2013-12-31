@@ -14,6 +14,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '=3.0.1'
 # gem 'voteable_matt_dec', path: '/Users/matthewmalone/Sites/voteable-gem'
+gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false

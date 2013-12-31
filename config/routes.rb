@@ -6,6 +6,8 @@ PostitTemplate::Application.routes.draw do
   get '/login', to: 'sessions#new' #with these 'sessions' we're creating a resourceful entity called 'sessions' (which doesn't have to be named 'sessions') in order to have access to 'new', 'create', 'destroy' methods, but without having to create a model; we can thus use non-model-backed helper methods in the new.html.erb template
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: 'logout' # , as: 'logout' is redundant and thus not necessary.
+  get '/pin', to: 'sessions#pin' #using same route with different HTTP verb to the same 'pin' action; this (on this line) gives us a helper method called 'pin_path' which we'll use in 'sessions_controller.rb'-->redirect_to pin_path
+  post '/pin', to: 'sessions#pin' #for the 'get' request there is a default 'pin' action which simply renders the template, even if there is no actual defined 'pin' method in the controller; BUT, with the 'post' request there is no such default action/method: it has to be specifically delineated in the controller; interestingly, the 'pin' action is used by both the 'get' and the 'post' requests
 
   resources :posts, except: [:destroy] do
     member do # w/in a member we specify the HTTP verb (post, here) and then we specify an action (:vote, here)

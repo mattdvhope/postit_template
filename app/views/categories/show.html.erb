@@ -1,4 +1,4 @@
-<% header = link_to('All Posts', posts_path) + " &raquo; #{@category.name}".html_safe %>
+<% header = link_to('All Posts', posts_path) + " &raquo; #{@category.name}".html_safe %> <!-- Must do .html_safe whenever we try to dynamically inject HTML into our strings; otherwise, rails will escape all strings automatically in case of malicious html or js; In this case, this is not data passed in by the user, it's hard-coded, so we don't have to worry about it. -->
 <%= render 'shared/content_title', title: header %>
 
 <% @category.posts.each do |post| %>

@@ -5,22 +5,24 @@
 
   <div class='span0 well text-center'>
     <% if logged_in? %>
-      <%= link_to vote_post_comment_path(comment.post, comment,   vote: true), method: 'post', remote: true do %>
+      <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post', remote: true do %>
         <i class='icon-arrow-up'></i>
       <% end %>
       <br/>
     <% end %>
+
     <span id="comment_<%= comment.id %>_votes"><%= comment.total_votes %> votes</span>
     <br/>
+    
     <% if logged_in? %>
-      <%= link_to vote_post_comment_path(comment.post, comment,   vote: false), method: 'post', remote: true do %>
+      <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post', remote: true do %>
         <i class='icon-arrow-down'></i>
       <% end %>
       <br/>
     <% end %>
   </div>
 
-  <% show_post ||= false %>
+  <% show_post ||= false %> <!-- If show_post doesn't exist (is 'falsey'), set it to 'false', otherwise use it below. -->
 
   <div class="well span8">
     <em>"<%= comment.content %>"</em>

@@ -1,8 +1,8 @@
 <% if @vote.valid? %>
-  $("#comment_<%= @comment.id %>_votes").html("<%= @comment.total_votes %> votes");
+  $("#comment_<%= @comment.id %>_votes").html("<%= @comment.total_votes %> votes"); // # from <span id="comment..." > tag in comments/_comment.html.erb
 <% else %>
   // alert("You can only vote on a comment once.");
 
-  $('#comment_vote_error_<%= @comment.to_param %>').show();
+  $('#comment_vote_error_<%= @comment.to_param %>').show(); // # is from <div id="comment_vote_error_<%=.." in comments/_comment.html.erb
 
 <% end %>

@@ -1,7 +1,8 @@
 <%= render 'shared/errors', obj: @post %>
 
 <div class="well span8">
-<%= form_for @post do |f| %>
+<%= form_for @post do |f| %> <!-- This model-backed form (form_for) knows which path & which HTTP method to choose depending on whether @post is a new or an existing object/record. -->
+
   <div class='control-group'>
   <%= f.label :title %>
   <%= f.text_field :title %>
@@ -19,8 +20,8 @@
   
   <div class='control-group'>
   <%= f.label "Categories" %>
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
-    <% cb.label(class: "check_box inline") {cb.check_box(class: "check_box") + cb.text} %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %> 
+    <% cb.label(class: "check_box inline") {cb.check_box(class: "check_box") + " " + cb.text} %>
   <% end %>
   </div>
 

@@ -4,7 +4,7 @@
   </div>
   <div class='span0 well text-center'>
     <% if logged_in? %>
-      <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true do %>
+      <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true do %> <!-- (1) Putting method: 'post' here allows us to be semantically correct in routes.rb (using post :vote rather than get :vote) which would have worked 'better', but not semantically correct in routes.rb. (2) remote: true provides the js for AJAX here; the js in rails is looking for data-remote in our html - that is provided by this 'remote: true' here. -->
         <i class='icon-arrow-up'></i>
       <% end %>
       <br/>
@@ -12,6 +12,7 @@
 
     <span id='post_<%= post.slug %>_votes'><%= post.total_votes %> votes</span>
     <br/>
+
     <% if logged_in? %>
       <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true do %>
         <i class='icon-arrow-down'></i>
